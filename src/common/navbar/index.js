@@ -21,6 +21,9 @@ function Header() {
             </Nav.Link>
             <Nav.Link href={"/gallery"}>
               <i>Latest</i>
+            </Nav.Link>{" "}
+            <Nav.Link href={"/gallery"}>
+              <i>About Us</i>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
