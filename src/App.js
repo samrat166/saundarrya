@@ -1,11 +1,19 @@
-import logo from "./logo.svg";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Header from "./common/navbar";
+import Gallery from "./components/gallery";
 
 function App() {
+  const [value, setValue] = useState(0);
   return (
-    <div className="App">
-      <h3>Saundarrya</h3>
-    </div>
+    <>
+      <Header />
+      <Routes>
+        <Route path="gallery" element={<Gallery />} />
+      </Routes>
+    </>
   );
 }
 
