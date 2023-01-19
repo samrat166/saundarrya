@@ -12,7 +12,7 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-5 mr-auto" style={{ fontSize: 24 }}>
+          <Nav className="ms-5 mr-auto" style={{ fontSize: 20 }}>
             <Nav.Link active href={"/gallery"}>
               <i>Gallery</i>
             </Nav.Link>
