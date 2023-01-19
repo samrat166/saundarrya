@@ -17,11 +17,9 @@ function Header() {
               <i>Gallery</i>
             </Nav.Link>
             <Nav.Link href={"/products"}>
-              {" "}
               <i>Products</i>
             </Nav.Link>
             <Nav.Link href={"/gallery"}>
-              {" "}
               <i>Latest</i>
             </Nav.Link>
           </Nav>
