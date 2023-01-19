@@ -5,14 +5,14 @@ import Logo from "../Logo";
 function Header() {
   return (
     <>
-      <Navbar bg="white" expand="md" sticky="top">
-        <Navbar.Brand href="/">
+      <Navbar bg="white" expand="md" sticky="top" className="p-0">
+        <Navbar.Brand href="/" className="p-0">
           <Logo small />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-5 mr-auto" style={{ fontSize: 20 }}>
+        <Navbar.Collapse id="basic-navbar-nav" className="p-0">
+          <Nav className="ms-5 me-auto" style={{ fontSize: 20 }}>
             <Nav.Link active href={"/gallery"}>
               <i>Gallery</i>
             </Nav.Link>
