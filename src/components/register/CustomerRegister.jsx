@@ -31,8 +31,6 @@ const CustomerRegister = () => {
   //   }, []);
 
   const handleSaveCustomerDetails = (detail) => {
-      console.log(detail, "sdasdas");
-
     setCustomers(addOrUpdateItemInArray(customers, detail));
   };
   const handelDeleteCustomer = (detail) => {
@@ -41,11 +39,39 @@ const CustomerRegister = () => {
   console.log(customers, "sdasdas");
 
   return (
-    <Card className="m-1 py-3 ">
-      <div className="d-flex justify-content-end me-2">
+    <Card className="m-1  ">
+      <div className="d-flex justify-content-between">
+        <div className="d-flex m-2 ">
+          <div className="d-flex">
+            <div
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: "50%",
+                backgroundColor: "red",
+              }}
+            />
+            <h5 style={{ fontSize: 10 }} className="ms-1 me-1">
+              Incomplete
+            </h5>
+          </div>{" "}
+          <div className="d-flex">
+            <div
+              style={{
+                height: 10,
+                width: 10,
+                borderRadius: "50%",
+                backgroundColor: "green",
+              }}
+            />
+            <h5 style={{ fontSize: 10 }} className="ms-1">
+              Completed
+            </h5>
+          </div>
+        </div>
         <Button
           variant="success"
-          className="px-1 py-0 "
+          className="px-1 mb-2 mt-1 py-0 me-1"
           style={{ fontSize: 11 }}
           onClick={() => setOpenAddCustomerModal({})}
         >
