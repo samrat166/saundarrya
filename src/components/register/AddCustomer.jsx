@@ -27,15 +27,17 @@ const AddCustomer = ({
                 {field.type === "enum" && (
                   <select
                     className="form-control form-control-sm w-100"
-                    value={customerDetail?.[field.name] ?? ''}
+                    value={customerDetail?.[field.name]}
                     onChange={(e) =>
                       setCustomerDetail({
                         ...customerDetail,
-                        [field.name]: e.target.value,
+                        [field.name]:
+                          e.target.value === "null" ? "No" : e.target.value,
                       })
                     }
                   >
                     {" "}
+                    <option className="null">Select One</option>
                     <option value="Yes">Yes</option>{" "}
                     <option value="No">No</option>
                     {field.name === "payment" && (
