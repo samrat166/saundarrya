@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./common/navbar";
 import Gallery from "./components/gallery";
+import Home from "./components/Home";
+import CustomerRegister from "./components/register/CustomerRegister";
 
 function App() {
   const [value, setValue] = useState(0);
@@ -11,7 +13,9 @@ function App() {
     <>
       <Header />
       <Routes>
-        <Route path="gallery" element={<Gallery />} />
+        <Route path="/" element={<Home />} />
+        <Route path="new-arrival" element={<Gallery />} />
+        <Route path="customer-register" element={<CustomerRegister />} />
       </Routes>
     </>
   );

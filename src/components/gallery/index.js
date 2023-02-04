@@ -9,7 +9,7 @@ import image from "../../assets/photo/index.jpg";
 
 export default function Gallery() {
   return (
-    <ImageList>
+    <ImageList sx={{ padding: "20px" }}>
       {itemData.map((item) => (
         <ImageListItem key={item.img}>
           <img
@@ -20,7 +20,7 @@ export default function Gallery() {
           />
           <ImageListItemBar
             title={item.title}
-            subtitle={item.author}
+            subtitle={item.price}
             actionIcon={
               <IconButton
                 sx={{ color: "rgba(255, 255, 255, 0.54)" }}
@@ -39,73 +39,62 @@ export default function Gallery() {
 const itemData = [
   {
     img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8ZmFzaGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-    title: "Breakfast",
-    author: "@bkristastucchio",
-    rows: 1,
-    cols: 1,
-    featured: true,
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: image,
-    title: "Burger",
-    author: "@rollelflex_graphy726",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-    title: "Camera",
-    author: "@helloimnik",
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: image,
-    title: "Coffee",
-    author: "@nolanissac",
-    cols: 2,
+    title: "Gucci bag",
+    price: "Rs 450",
+  },
+  {
+    img: image,
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: image,
     title: "Hats",
-    author: "@hjrc33",
-    cols: 2,
+    price: "@hjrc33",
   },
   {
     img: "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62",
-    title: "Honey",
-    author: "@arwinneil",
-    rows: 2,
-    cols: 2,
-    featured: true,
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6",
-    title: "Basketball",
-    author: "@tjdragotta",
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: "https://images.unsplash.com/photo-1518756131217-31eb79b20e8f",
-    title: "Fern",
-    author: "@katie_wasserman",
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: "https://images.unsplash.com/photo-1597645587822-e99fa5d45d25",
-    title: "Mushrooms",
-    author: "@silverdalex",
-    rows: 2,
-    cols: 2,
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: "https://images.unsplash.com/photo-1567306301408-9b74779a11af",
-    title: "Tomato basil",
-    author: "@shelleypauls",
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: "https://images.unsplash.com/photo-1471357674240-e1a485acb3e1",
-    title: "Sea star",
-    author: "@peterlaster",
+    title: "Gucci bag",
+    price: "Rs 450",
   },
   {
     img: "https://images.unsplash.com/photo-1589118949245-7d38baf380d6",
-    title: "Bike",
-    author: "@southside_customs",
-    cols: 2,
+    title: "Gucci bag",
+    price: "Rs 450",
   },
 ];

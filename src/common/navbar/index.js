@@ -6,11 +6,11 @@ function Header() {
   return (
     <>
       <Navbar
-        bg="transparent"
+        bg="white"
         expand="md"
         sticky="top"
         className="p-0"
-        style={{ height: "75px" }}
+        style={{ height: "75px", opacity: 0.9 }}
       >
         <Navbar.Brand href="/" className="p-0">
           <Logo small />
@@ -21,7 +21,7 @@ function Header() {
             className="ms-5 me-auto"
             style={{ fontSize: 20, fontWeight: 300 }}
           >
-            <Nav.Link className="ms-2" active href={"/gallery"}>
+            <Nav.Link className="ms-2" active href={"/new-arrival"}>
               New Arrivals
             </Nav.Link>
             <Nav.Link className="ms-2" href={"/products"}>
