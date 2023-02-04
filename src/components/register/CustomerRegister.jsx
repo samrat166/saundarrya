@@ -1,3 +1,8 @@
+import {
+  Edit,
+  PersonPinCircle,
+  PersonPinCircleSharp,
+} from "@mui/icons-material";
 import React, { useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
 import {
@@ -104,9 +109,10 @@ const CustomerRegister = () => {
                 })}
                 <td>
                   <Button
-                    variant="dark"
+                    variant="warning"
                     size="sm"
                     className="mx-2 text-white px-1 py-0"
+                    style={{ fontSize: 10 }}
                     onClick={() => setOpenAddCustomerModal({ ...customer })}
                   >
                     Edit
