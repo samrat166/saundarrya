@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { productRegisterFormFields } from "../../common/constants";
 
-const AddCustomer = ({ show, handleClose, handleSaveCustomerDetails }) => {
+const AddCustomer = ({
+  show,
+  handleClose,
+  handleSaveCustomerDetails,
+  handelDeleteCustomer,
+}) => {
   const [customerDetail, setCustomerDetail] = useState();
   useEffect(() => {
     setCustomerDetail(show);
@@ -59,7 +64,13 @@ const AddCustomer = ({ show, handleClose, handleSaveCustomerDetails }) => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="danger" onClick={handleClose}>
+        <Button
+          variant="danger"
+          onClick={() => {
+            handelDeleteCustomer(customerDetail);
+            handleClose();
+          }}
+        >
           Delete
         </Button>
         <Button

@@ -31,8 +31,14 @@ const CustomerRegister = () => {
   //   }, []);
 
   const handleSaveCustomerDetails = (detail) => {
+      console.log(detail, "sdasdas");
+
     setCustomers(addOrUpdateItemInArray(customers, detail));
   };
+  const handelDeleteCustomer = (detail) => {
+    setCustomers(customers.filter((x) => x._id !== detail._id));
+  };
+  console.log(customers, "sdasdas");
 
   return (
     <Card className="m-1 py-3 ">
@@ -89,6 +95,7 @@ const CustomerRegister = () => {
         show={openAddCustomerModal}
         handleClose={() => setOpenAddCustomerModal(null)}
         handleSaveCustomerDetails={handleSaveCustomerDetails}
+        handelDeleteCustomer={handelDeleteCustomer}
       />
     </Card>
   );
