@@ -6,13 +6,27 @@ const AddCustomer = ({
   show,
   handleClose,
   handleSaveCustomerDetails,
+  handleEdit,
   handelDeleteCustomer,
 }) => {
   const [customerDetail, setCustomerDetail] = useState();
+
+  const handleSaveChanges = () => {
+    if (!customerDetail?._id) {
+      handleSaveCustomerDetails({
+        ...customerDetail,
+        _id: randomId(),
+      });
+    } else {
+      handleEdit(customerDetail, show?.index);
+    }
+    handleClose();
+  };
+
   useEffect(() => {
     setCustomerDetail(show);
   }, [show]);
-  console.log(customerDetail, "asdasd");
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -76,16 +90,7 @@ const AddCustomer = ({
         >
           Delete
         </Button>
-        <Button
-          variant="success"
-          onClick={() => {
-            handleSaveCustomerDetails({
-              ...customerDetail,
-              _id: customerDetail?._id ? customerDetail?._id : randomId(),
-            });
-            handleClose();
-          }}
-        >
+        <Button variant="success" onClick={handleSaveChanges}>
           Save Changes
         </Button>
       </Modal.Footer>
@@ -96,5 +101,5 @@ const AddCustomer = ({
 export default AddCustomer;
 
 const randomId = () => {
-  return Math.floor(Math.random() * 100 + 1);
+  return Math.floor(Math.random() * 10000 + 1);
 };

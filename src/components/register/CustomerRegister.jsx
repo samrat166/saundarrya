@@ -3,7 +3,7 @@ import {
   PersonPinCircle,
   PersonPinCircleSharp,
 } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
 import {
   addOrUpdateItemInArray,
@@ -13,31 +13,63 @@ import {
 import AddCustomer from "./AddCustomer";
 
 const CustomerRegister = () => {
-  const [customers, setCustomers] = useState(users);
+  const [customers, setCustomers] = useState([]);
   const [openAddCustomerModal, setOpenAddCustomerModal] = useState(null);
 
-  //   const createClientService = async (userData) => {
-  //     const config = {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //     };
-  //     const response = await axios.get(
-  //       "http://localhost:5000/api/v1/customer",
-  //       {},
-  //       config
-  //     );
-  //     console.log(response, "customers");
-  //     setCustomers(response);
-  //   };
-  //   useEffect(() => {
-  //     createClientService();
-  //   }, []);
-
-  const handleSaveCustomerDetails = (detail) => {
-    setCustomers(addOrUpdateItemInArray(customers, detail));
+  const handleSaveCustomerDetails = async (detail) => {
+    const data = { ...detail };
+    try {
+      const res = await fetch(
+        "https://sheet.best/api/sheets/538b85bd-c5d6-40fc-a161-c797dbbbd25e",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (res.ok) {
+        getData();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const getData = async () => {
+    try {
+      const res = await fetch(
+        "https://sheet.best/api/sheets/538b85bd-c5d6-40fc-a161-c797dbbbd25e"
+      );
+      const data = await res.json();
+      setCustomers(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleEdit = async (data, rowIndex) => {
+    try {
+      const res = await fetch(
+        `https://sheet.best/api/sheets/538b85bd-c5d6-40fc-a161-c797dbbbd25e/${rowIndex}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      if (res.ok) {
+        getData();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // useEffect(() => {
+  //   getData();
+  // }, []);
   const handelDeleteCustomer = (detail) => {
     setCustomers(customers.filter((x) => x._id !== detail._id));
   };
@@ -93,7 +125,7 @@ const CustomerRegister = () => {
           </tr>
         </thead>
         <tbody>
-          {customers.map((customer) => {
+          {customers?.map((customer, index) => {
             return (
               <tr
                 className={
@@ -113,7 +145,9 @@ const CustomerRegister = () => {
                     size="sm"
                     className="mx-2 text-white px-1 py-0"
                     style={{ fontSize: 10 }}
-                    onClick={() => setOpenAddCustomerModal({ ...customer })}
+                    onClick={() =>
+                      setOpenAddCustomerModal({ ...customer, index })
+                    }
                   >
                     Edit
                   </Button>
@@ -128,6 +162,7 @@ const CustomerRegister = () => {
         handleClose={() => setOpenAddCustomerModal(null)}
         handleSaveCustomerDetails={handleSaveCustomerDetails}
         handelDeleteCustomer={handelDeleteCustomer}
+        handleEdit={handleEdit}
       />
     </Card>
   );
