@@ -1,3 +1,4 @@
+import { Person2Rounded } from "@mui/icons-material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
@@ -59,41 +60,24 @@ const CustomerRegister = () => {
       console.log(error);
     }
   };
-  console.log(customers, "sdasdas");
 
   return (
-    <Card className="m-1  ">
+    <Card className="my-2 mx-1 py-2 ">
       <div className="d-flex justify-content-between">
         <div className="d-flex m-2 ">
           <div className="d-flex">
-            <div
-              style={{
-                height: 10,
-                width: 10,
-                borderRadius: "50%",
-                backgroundColor: "red",
-              }}
-            />
-            <h5 style={{ fontSize: 10 }} className="ms-1 me-1">
-              Incomplete
+            <Person2Rounded />
+            <h5
+              style={{ fontSize: 19, marginTop: 2 }}
+              className="ms-1 me-1  mb-0"
+            >
+              {customers?.length}
             </h5>
           </div>{" "}
-          <div className="d-flex">
-            <div
-              style={{
-                height: 10,
-                width: 10,
-                borderRadius: "50%",
-                backgroundColor: "green",
-              }}
-            />
-            <h5 style={{ fontSize: 10 }} className="ms-1">
-              Completed
-            </h5>
-          </div>
         </div>
+
         <Button
-          variant="success"
+          variant="outline-dark"
           className="px-1 mb-2 mt-1 py-0 me-1"
           style={{ fontSize: 11 }}
           onClick={() => setOpenAddCustomerModal({})}
@@ -101,13 +85,12 @@ const CustomerRegister = () => {
           Add New Customer
         </Button>
       </div>
-      <Table striped bordered hover size="sm">
+      <Table striped bordered hover size="sm" className="mt-1">
         <thead>
           <tr>
             {productRegisterFields.map((field) => {
               return <td style={{ fontSize: 11 }}>{field.label}</td>;
             })}
-            <td style={{ fontSize: 12 }}>Action</td>
           </tr>
         </thead>
         <tbody>
@@ -117,6 +100,7 @@ const CustomerRegister = () => {
                 className={
                   checkIfCompleted(customer) ? "bg-success" : "bg-danger"
                 }
+                onClick={() => setOpenAddCustomerModal({ ...customer, index })}
               >
                 {productRegisterFields.map((field) => {
                   return (
@@ -125,19 +109,6 @@ const CustomerRegister = () => {
                     </td>
                   );
                 })}
-                <td>
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    className="mx-2 text-white px-1 py-0"
-                    style={{ fontSize: 10 }}
-                    onClick={() =>
-                      setOpenAddCustomerModal({ ...customer, index })
-                    }
-                  >
-                    Edit
-                  </Button>
-                </td>
               </tr>
             );
           })}

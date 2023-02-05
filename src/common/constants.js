@@ -58,7 +58,7 @@ export const productRegisterFields = [
 
   {
     name: "payment",
-    label: "Cash",
+    label: "Payment?",
     type: "enum",
   },
   {
@@ -69,7 +69,7 @@ export const productRegisterFields = [
 
   {
     name: "isCouriered",
-    label: "Couriered",
+    label: "Couriered?",
     type: "enum",
   },
   {
