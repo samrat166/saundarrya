@@ -1,37 +1,22 @@
-import {
-  Edit,
-  PersonPinCircle,
-  PersonPinCircleSharp,
-} from "@mui/icons-material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
-import {
-  addOrUpdateItemInArray,
-  productRegisterFields,
-  users,
-} from "../../common/constants";
+import { productRegisterFields } from "../../common/constants";
 import AddCustomer from "./AddCustomer";
 
 const CustomerRegister = () => {
   const [customers, setCustomers] = useState([]);
   const [openAddCustomerModal, setOpenAddCustomerModal] = useState(null);
 
-  const handleSaveCustomerDetails = async (detail) => {
+  const handleCreateCustomer = async (detail) => {
     const data = { ...detail };
+    console.log(data);
     try {
-      const res = await fetch(
-        "https://sheet.best/api/sheets/538b85bd-c5d6-40fc-a161-c797dbbbd25e",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
+      const res = await axios.post(
+        `https://vast-rose-bluefish-coat.cyclic.app/customer/`,
+        data
       );
-      if (res.ok) {
-        getData();
-      }
+      getData();
     } catch (error) {
       console.log(error);
     }
@@ -39,39 +24,40 @@ const CustomerRegister = () => {
 
   const getData = async () => {
     try {
-      const res = await fetch(
-        "https://sheet.best/api/sheets/538b85bd-c5d6-40fc-a161-c797dbbbd25e"
+      const res = await axios.get(
+        `https://vast-rose-bluefish-coat.cyclic.app/customer`
       );
-      const data = await res.json();
-      setCustomers(data);
+      setCustomers(res.data);
     } catch (error) {
       console.log(error);
     }
   };
-  const handleEdit = async (data, rowIndex) => {
+  const handleEdit = async (data) => {
     try {
-      const res = await fetch(
-        `https://sheet.best/api/sheets/538b85bd-c5d6-40fc-a161-c797dbbbd25e/${rowIndex}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
+      const res = await axios.patch(
+        `https://vast-rose-bluefish-coat.cyclic.app/customer/${data._id}`,
+        data
       );
-      if (res.ok) {
-        getData();
-      }
+
+      if (res.data) getData();
     } catch (error) {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-  const handelDeleteCustomer = (detail) => {
-    setCustomers(customers.filter((x) => x._id !== detail._id));
+  useEffect(() => {
+    getData();
+  }, []);
+  const handelDeleteCustomer = async (detail) => {
+    try {
+      const res = await axios.delete(
+        `https://vast-rose-bluefish-coat.cyclic.app/customer/${detail._id}`
+      );
+      console.log(res, "sadsdasadasdasdasdasd");
+
+      setCustomers(customers.filter((x) => x._id !== detail._id));
+    } catch (error) {
+      console.log(error);
+    }
   };
   console.log(customers, "sdasdas");
 
@@ -160,7 +146,7 @@ const CustomerRegister = () => {
       <AddCustomer
         show={openAddCustomerModal}
         handleClose={() => setOpenAddCustomerModal(null)}
-        handleSaveCustomerDetails={handleSaveCustomerDetails}
+        handleCreateCustomer={handleCreateCustomer}
         handelDeleteCustomer={handelDeleteCustomer}
         handleEdit={handleEdit}
       />

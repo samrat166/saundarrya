@@ -1,57 +1,77 @@
+import { AccountCircleSharp, Face3 } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { productRegisterFormFields } from "../../common/constants";
+import DeleteModal from "./DeleteModal";
 
 const AddCustomer = ({
   show,
   handleClose,
-  handleSaveCustomerDetails,
+  handleCreateCustomer,
   handleEdit,
   handelDeleteCustomer,
 }) => {
-  const [customerDetail, setCustomerDetail] = useState();
-
+  const [customerDetail, setCustomerDetail] = useState({});
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const handleSaveChanges = () => {
-    if (!customerDetail?._id) {
-      handleSaveCustomerDetails({
-        ...customerDetail,
-        _id: randomId(),
-      });
+    if (!customerDetail.name) return alert("Please Enter Customer's Name");
+    if (!customerDetail.address)
+      return alert("Please Enter Customer's Address");
+    if (!customerDetail.phoneNumber)
+      return alert("Please Enter Customer's Phone Number");
+    if (
+      !customerDetail.note &&
+      (customerDetail.isProductReady === "No" || !customerDetail.isProductReady)
+    )
+      return alert("Please provide reason why the product is not ready");
+    if (!customerDetail._id) {
+      handleCreateCustomer(customerDetail);
     } else {
-      handleEdit(customerDetail, show?.index);
+      handleEdit(customerDetail);
     }
     handleClose();
   };
 
+  const handleCustomerDelete = () => {
+    handelDeleteCustomer(customerDetail);
+    handleClose();
+  };
   useEffect(() => {
     setCustomerDetail(show);
   }, [show]);
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{show?.name} 's Details</Modal.Title>
+      <Modal.Header closeButton className="py-1">
+        <Modal.Title>
+          {show?.name ? (
+            <>
+              <AccountCircleSharp />{" "}
+              <span style={{ fontSize: 18 }}> {show?.name.toUpperCase()}</span>
+            </>
+          ) : (
+            "Add New Customer"
+          )}
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body className="py-1">
         <Row>
-          {productRegisterFormFields.map((field) => {
+          {productRegisterFormFields.map((field, index) => {
             return (
-              <Col xs={field.xs} className="mt-3">
+              <Col xs={field.xs} className={index !== 0 && "mt-2"}>
                 <h6 className="small mb-1 text-muted">{field.label}:</h6>
                 {field.type === "enum" && (
                   <select
                     className="form-control form-control-sm w-100"
-                    value={customerDetail?.[field.name]}
+                    value={customerDetail?.[field.name] ?? "No"}
                     onChange={(e) =>
                       setCustomerDetail({
                         ...customerDetail,
-                        [field.name]:
-                          e.target.value === "null" ? "No" : e.target.value,
+                        [field.name]: e.target.value,
                       })
                     }
                   >
                     {" "}
-                    <option className="null">Select One</option>
                     <option value="Yes">Yes</option>{" "}
                     <option value="No">No</option>
                     {field.name === "payment" && (
@@ -72,7 +92,7 @@ const AddCustomer = ({
                         [field.name]: e.target.value,
                       })
                     }
-                    class="form-control form-control-sm"
+                    className="form-control form-control-sm"
                   ></input>
                 )}
               </Col>
@@ -81,25 +101,23 @@ const AddCustomer = ({
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button
-          variant="danger"
-          onClick={() => {
-            handelDeleteCustomer(customerDetail);
-            handleClose();
-          }}
-        >
-          Delete
-        </Button>
+        {show?._id && (
+          <Button variant="danger" onClick={() => setOpenDeleteModal(true)}>
+            Delete
+          </Button>
+        )}
         <Button variant="success" onClick={handleSaveChanges}>
           Save Changes
         </Button>
       </Modal.Footer>
+      <DeleteModal
+        openDeleteModal={openDeleteModal}
+        onHide={() => setOpenDeleteModal(false)}
+        onDelete={handleCustomerDelete}
+        name={show?.name}
+      />
     </Modal>
   );
 };
 
 export default AddCustomer;
-
-const randomId = () => {
-  return Math.floor(Math.random() * 10000 + 1);
-};
